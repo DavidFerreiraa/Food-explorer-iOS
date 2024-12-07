@@ -8,6 +8,8 @@
 import UIKit
 
 class ExplorerTextField: UITextField {
+    let textPadding = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
+    
     init(placeholderText: String) {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
@@ -25,7 +27,15 @@ class ExplorerTextField: UITextField {
     }
     
     override func textRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16))
+        return bounds.inset(by: textPadding)
+    }
+    
+    override func editingRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.inset(by: textPadding)
+    }
+    
+    override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.inset(by: textPadding)
     }
     
     required init?(coder: NSCoder) {

@@ -47,7 +47,6 @@ class LogoView: UIStackView {
     private func setConstraints() {
         NSLayoutConstraint.activate([
             logoImageView.widthAnchor.constraint(equalToConstant: self.logoSize + 6),
-            logoImageView.heightAnchor.constraint(equalToConstant: self.logoSize + 6),
         ])
     }
 }

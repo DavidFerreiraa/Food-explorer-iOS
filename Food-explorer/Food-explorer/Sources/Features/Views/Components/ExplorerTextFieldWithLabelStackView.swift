@@ -47,10 +47,9 @@ class ExplorerTextFieldWithLabelStackView: UIStackView {
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            self.widthAnchor.constraint(equalToConstant: 316),
             textField.heightAnchor.constraint(equalToConstant: 44),
-            textField.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            textField.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            textField.leadingAnchor.constraint(equalTo: leadingAnchor),
+            textField.trailingAnchor.constraint(equalTo: trailingAnchor),
             label.heightAnchor.constraint(equalToConstant: 16)
         ])
     }

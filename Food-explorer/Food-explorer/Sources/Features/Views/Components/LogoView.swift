@@ -7,20 +7,15 @@
 
 import UIKit
 
-class LogoView: UIStackView {
+class LogoView: UIView {
     let logoSize: CGFloat
+    
     init(logoSize: CGFloat) {
         self.logoSize = logoSize
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
-        axis = .horizontal
-        spacing = 8
-        distribution = .fill
         
-        addArrangedSubview(logoImageView)
-        addArrangedSubview(logoLabel)
-        
-        setConstraints()
+        setupUI()
     }
     
     required init(coder: NSCoder) {
@@ -44,9 +39,26 @@ class LogoView: UIStackView {
         return label
     }()
     
+    private func setupUI() {
+        setHierarchy()
+        setConstraints()
+    }
+    
+    private func setHierarchy() {
+        addSubview(logoImageView)
+        addSubview(logoLabel)
+    }
+    
     private func setConstraints() {
         NSLayoutConstraint.activate([
+            logoImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            logoImageView.topAnchor.constraint(equalTo: topAnchor),
+            logoImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
             logoImageView.widthAnchor.constraint(equalToConstant: self.logoSize + 6),
+            logoImageView.heightAnchor.constraint(equalToConstant: self.logoSize + 6),
+            
+            logoLabel.leadingAnchor.constraint(equalTo: logoImageView.trailingAnchor, constant: 12),
+            logoLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
     }
 }

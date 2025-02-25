@@ -20,6 +20,7 @@ class SignInViewController: UIViewController {
         contentView.didTapExplorerTextButton = { [weak self] in
             self?.delegate?.navigateToSignUp()
         }
+        hideKeyboardWhenTappedAround()
     }
     
     required init?(coder: NSCoder) {

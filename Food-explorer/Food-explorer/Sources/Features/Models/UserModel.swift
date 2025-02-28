@@ -13,8 +13,8 @@ struct User: Decodable {
     let email: String
     let Role: UserRole
     let avatarURL: String?
-    let createdAt: Date
-    let updatedAt: Date
+    let createdAt: String
+    let updatedAt: String
     let jwtToken: String
     let refreshToken: String?
 }

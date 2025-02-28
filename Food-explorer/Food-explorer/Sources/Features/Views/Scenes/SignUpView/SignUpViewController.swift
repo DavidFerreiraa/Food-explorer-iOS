@@ -25,7 +25,6 @@ class SignUpViewController: UIViewController {
         
         contentView.didTapExplorerButton = { [weak self] in
             contentView.getFormData { [weak self] (name, email, password) in
-                print(name)
                 self?.viewModel.signUp(name: name, email: email, password: password)
             }
         }

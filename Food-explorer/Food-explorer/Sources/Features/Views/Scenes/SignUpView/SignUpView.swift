@@ -113,7 +113,6 @@ class SignUpView: UIView {
     private func setConstraints() {
         NSLayoutConstraint.activate([
             logoView.heightAnchor.constraint(equalToConstant: 44),
-//            logoView.widthAnchor.constraint(equalToConstant: 280),
             logoView.topAnchor.constraint(equalTo: topAnchor, constant: 158),
             logoView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 65),
             

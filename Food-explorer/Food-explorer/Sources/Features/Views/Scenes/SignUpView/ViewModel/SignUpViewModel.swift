@@ -21,20 +21,15 @@ class SignUpViewModel {
             return
         }
         
-        do {
-            try UserService.shared.createUser(name: name, email: email, password: password) { result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success:
-                        self.onSignUpSuccess?()
-                    case .failure(let error):
-                        let message = (error as? UserServiceError)?.localizedDescription ?? error.localizedDescription
-                        self.onSignUpFailure?("Erro ao conectar com o servidor: \(message)")
-                    }
+        UserService.shared.createUser(name: name, email: email, password: password) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    self.onSignUpSuccess?()
+                case .failure(let error):
+                    self.onSignUpFailure?("Erro ao conectar com o servidor: \(error.localizedDescription)")
                 }
             }
-        } catch {
-            onSignUpFailure?("Erro ao conectar com o servidor: \(error.localizedDescription)")
         }
     }
 }

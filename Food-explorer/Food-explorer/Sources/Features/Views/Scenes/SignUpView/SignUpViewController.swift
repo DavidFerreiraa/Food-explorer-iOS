@@ -11,6 +11,7 @@ import UIKit
 class SignUpViewController: UIViewController {
     
     let contentView: SignUpView
+    let viewModel: SignUpViewModel = SignUpViewModel()
     weak var delegate: SignUpFlowDelegate?
     
     init(contentView: SignUpView, delegate: SignUpFlowDelegate) {
@@ -20,6 +21,25 @@ class SignUpViewController: UIViewController {
         
         contentView.didTapExplorerTextButton = { [weak self] in
             self?.delegate?.navigateToSignIn()
+        }
+        
+        contentView.didTapExplorerButton = { [weak self] in
+            contentView.getFormData { [weak self] (name, email, password) in
+                print(name)
+                self?.viewModel.signUp(name: name, email: email, password: password)
+            }
+        }
+        
+        viewModel.onSignUpSuccess = {
+            let alert = UIAlertController(title: "Success", message: "User created successfully", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(alert, animated: true)
+        }
+        
+        viewModel.onSignUpFailure = { [weak self] error in
+            let alert = UIAlertController(title: "Erro", message: error, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            self?.present(alert, animated: true)
         }
         
         hideKeyboardWhenTappedAround()

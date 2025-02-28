@@ -9,5 +9,6 @@ import Foundation
 import UIKit
 
 public protocol SignInFlowDelegate: AnyObject {
-    func navigateToSignUp() 
+    func navigateToSignUp()
+    func navigateToHome()
 }

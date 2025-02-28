@@ -32,6 +32,12 @@ extension FlowCoordinator: SignInFlowDelegate {
         let signUpViewController = SignUpViewController(contentView: contentView, delegate: self)
         navigationController?.pushViewController(signUpViewController, animated: true)
     }
+    
+    func navigateToHome() {
+        let contentView = HomeView()
+        let homeViewController: UIViewController = HomeViewController(contentView: contentView)
+        navigationController?.pushViewController(homeViewController, animated: true)
+    }
 }
 
 extension FlowCoordinator: SignUpFlowDelegate {

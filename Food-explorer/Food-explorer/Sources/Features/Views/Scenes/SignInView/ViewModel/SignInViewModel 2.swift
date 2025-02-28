@@ -1,5 +1,5 @@
 //
-//  SignUpViewModel.swift
+//  SignInViewModel.swift
 //  Food-explorer
 //
 //  Created by David Ferreira Lima on 26/02/25.
@@ -7,34 +7,29 @@
 
 import Foundation
 
-enum SignUpError: Error {
+enum SignInError: Error {
     case emptyFields
 }
 
-class SignUpViewModel {
-    var onSignUpSuccess: (() -> Void)?
-    var onSignUpFailure: ((String) -> Void)?
+class SignInViewModel {
+    var onSignInSuccess: (() -> Void)?
+    var onSignInFailure: ((String) -> Void)?
     
-    func signUp(name: String, email: String, password: String) {
-        guard !name.isEmpty, !email.isEmpty, !password.isEmpty else {
-            onSignUpFailure?("Preencha todos os campos.")
+    func signIn(email: String, password: String) {
+        guard !email.isEmpty, !password.isEmpty else {
+            onSignInFailure?("Preencha todos os campos.")
             return
         }
         
-        do {
-            try UserService.shared.createUser(name: name, email: email, password: password) { result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success:
-                        self.onSignUpSuccess?()
-                    case .failure(let error):
-                        let message = (error as? UserServiceError)?.localizedDescription ?? error.localizedDescription
-                        self.onSignUpFailure?("Erro ao conectar com o servidor: \(message)")
-                    }
+        SessionService.shared.createSession(email: email, password: password) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let user):
+                    self.onSignInSuccess?()
+                case .failure(let error):
+                    self.onSignInFailure?("Erro ao conectar com o servidor: \(error.localizedDescription)")
                 }
             }
-        } catch {
-            onSignUpFailure?("Erro ao conectar com o servidor: \(error.localizedDescription)")
         }
     }
 }

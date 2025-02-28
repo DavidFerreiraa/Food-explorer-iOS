@@ -10,6 +10,7 @@ import UIKit
 class SignInViewController: UIViewController {
     
     let contentView: SignInView
+    let viewModel: SignInViewModel = SignInViewModel()
     weak var delegate: SignInFlowDelegate?
     
     init(contentView: SignInView, delegate: SignInFlowDelegate) {
@@ -20,6 +21,26 @@ class SignInViewController: UIViewController {
         contentView.didTapExplorerTextButton = { [weak self] in
             self?.delegate?.navigateToSignUp()
         }
+        
+        contentView.didTapExplorerButton = { [weak self] in
+            contentView.getFormData { [weak self] (email, password) in
+                self?.viewModel.signIn(email: email, password: password)
+            }
+        }
+        
+        viewModel.onSignInSuccess = {
+            print("Sucesso")
+            let alert = UIAlertController(title: "Success", message: "Session created successfully", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(alert, animated: true)
+        }
+        
+        viewModel.onSignInFailure = { [weak self] error in
+            let alert = UIAlertController(title: "Erro", message: error, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            self?.present(alert, animated: true)
+        }
+        
         hideKeyboardWhenTappedAround()
     }
     

@@ -6,3 +6,35 @@
 //
 
 import Foundation
+
+enum SignUpError: Error {
+    case emptyFields
+}
+
+class SignUpViewModel {
+    var onSignUpSuccess: (() -> Void)?
+    var onSignUpFailure: ((String) -> Void)?
+    
+    func signUp(name: String, email: String, password: String) {
+        guard !name.isEmpty, !email.isEmpty, !password.isEmpty else {
+            onSignUpFailure?("Preencha todos os campos.")
+            return
+        }
+        
+        do {
+            try UserService.shared.createUser(name: name, email: email, password: password) { result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success:
+                        self.onSignUpSuccess?()
+                    case .failure(let error):
+                        let message = (error as? UserServiceError)?.localizedDescription ?? error.localizedDescription
+                        self.onSignUpFailure?("Erro ao conectar com o servidor: \(message)")
+                    }
+                }
+            }
+        } catch {
+            onSignUpFailure?("Erro ao conectar com o servidor: \(error.localizedDescription)")
+        }
+    }
+}

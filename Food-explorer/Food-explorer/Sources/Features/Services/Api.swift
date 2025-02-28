@@ -6,3 +6,8 @@
 //
 
 import Foundation
+import UIKit
+
+class Api {
+    static let baseUrlString: String = "http://192.168.1.110:3333"
+}

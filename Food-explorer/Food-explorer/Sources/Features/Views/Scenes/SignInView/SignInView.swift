@@ -10,6 +10,7 @@ import UIKit
 
 class SignInView: UIView {
     var didTapExplorerTextButton: (() -> Void?)?
+    var didTapExplorerButton: (() -> Void?)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -57,6 +58,7 @@ class SignInView: UIView {
     
     private lazy var explorerButton: ExplorerButton = {
         let button = ExplorerButton(buttonText: "Entrar")
+        button.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
         return button
     }()
     
@@ -69,6 +71,19 @@ class SignInView: UIView {
     @objc
     private func didTapText() {
         didTapExplorerTextButton?()
+    }
+    
+    @objc
+    private func didTapSignIn() {
+        Task {
+            didTapExplorerButton?()
+        }
+    }
+    
+    func getFormData(_ completion: @escaping (_ email: String, _ password: String) -> Void) {
+        let email = explorerEmailTextField.text ?? ""
+        let password = explorerPasswordTextField.text ?? ""
+        completion(email, password)
     }
     
     private func setupView() {

@@ -30,9 +30,7 @@ class SignInViewController: UIViewController {
         
         viewModel.onSignInSuccess = {
             print("Sucesso")
-            let alert = UIAlertController(title: "Success", message: "Session created successfully", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            self.present(alert, animated: true)
+            self.delegate?.navigateToHome()
         }
         
         viewModel.onSignInFailure = { [weak self] error in

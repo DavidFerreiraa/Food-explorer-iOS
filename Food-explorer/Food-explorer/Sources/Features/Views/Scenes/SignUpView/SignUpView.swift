@@ -29,7 +29,7 @@ class SignUpView: UIView {
         view.axis = .vertical
         view.spacing = 32
         view.distribution = .fillProportionally
-        view.alignment = .center
+        view.alignment = .fill
 
         return view
     }()
@@ -116,7 +116,6 @@ class SignUpView: UIView {
             logoView.topAnchor.constraint(equalTo: topAnchor, constant: 158),
             logoView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 65),
             
-            inputWrapperView.heightAnchor.constraint(equalToConstant: 424),
             inputWrapperView.topAnchor.constraint(equalTo: logoView.bottomAnchor, constant: 73),
             inputWrapperView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 65),
             inputWrapperView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -45),

@@ -66,7 +66,6 @@ class ExplorerButton: UIButton {
     }
     
     private func setConstraints() {
-        widthAnchor.constraint(equalToConstant: 316).isActive = true
         heightAnchor.constraint(equalToConstant: 48).isActive = true
     }
 }

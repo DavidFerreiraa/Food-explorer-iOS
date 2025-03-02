@@ -9,7 +9,11 @@ import Foundation
 import UIKit
 
 extension UIView {
-    func setConstraintsToParent(_ parent: UIView) {
+    func setConstraintsToParent() {
+        guard let parent = superview else { return }
+                
+        translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             self.topAnchor.constraint(equalTo: parent.topAnchor),
             self.leadingAnchor.constraint(equalTo: parent.leadingAnchor),

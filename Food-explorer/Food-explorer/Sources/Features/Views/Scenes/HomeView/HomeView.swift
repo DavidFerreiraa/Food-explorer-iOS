@@ -19,6 +19,14 @@ class HomeView: UIView {
         return headerView
     }()
     
+    private lazy var bannerImageView: UIImageView = {
+        let bannerImageView = UIImageView(image: UIImage(named: "banner"))
+        bannerImageView.translatesAutoresizingMaskIntoConstraints = false
+        bannerImageView.contentMode = .scaleAspectFit
+        bannerImageView.clipsToBounds = true
+        return bannerImageView
+    }()
+    
     required init?(coder: NSCoder){
         fatalError("init(coder:) has not been implemented")
     }
@@ -30,6 +38,7 @@ class HomeView: UIView {
     
     private func setHierarchy() {
         addSubview(headerView)
+        addSubview(bannerImageView)
     }
     
     private func setConstraints() {
@@ -37,7 +46,11 @@ class HomeView: UIView {
             headerView.topAnchor.constraint(equalTo: topAnchor),
             headerView.leadingAnchor.constraint(equalTo: leadingAnchor),
             headerView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: 104) // Altura fixa
+            headerView.bottomAnchor.constraint(equalTo: topAnchor, constant: 104),
+            
+            bannerImageView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 16),
+            bannerImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            bannerImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -6)
         ])
     }
 }
